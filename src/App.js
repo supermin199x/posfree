@@ -35,6 +35,10 @@ export default function App() {
 		setTotalPrice(e.target.value);
 	};
 
+	const setPriceKey = (e) => {
+		setPrice(e.target.value);
+	};
+
 	const setPriceOne = () => {
 		setPrice(100);
 	};
@@ -79,13 +83,28 @@ export default function App() {
 							maxWidth: '100%',
 						}}
 					>
-						<FormControl fullWidth sx={{ mt: 2 }} variant="standard">
-							<InputLabel htmlFor="standard-adornment-amount">เงินที่รับ</InputLabel>
-							<Input
-								id="standard-adornment-amount"
-								startAdornment={<InputAdornment position="start">฿ {price}</InputAdornment>}
-							/>
-						</FormControl>
+						<Box
+							sx={{
+								width: 800,
+								maxWidth: '100%',
+								display: 'flex'
+							}}
+						>
+							<FormControl fullWidth sx={{ mt: 2, mr: 2 }} variant="standard">
+								<InputLabel htmlFor="standard-adornment-amount">เงินที่รับ</InputLabel>
+								<Input
+									id="standard-adornment-amount"
+									startAdornment={<InputAdornment position="start" >{price}</InputAdornment>}
+								/>
+							</FormControl>
+							<FormControl fullWidth sx={{ mt: 2 }} variant="standard">
+								<InputLabel htmlFor="standard-adornment-amount">ป้อนเอง</InputLabel>
+								<Input onChange={setPriceKey}
+									id="standard-adornment-amount"
+									startAdornment={<InputAdornment position="start" value={price}></InputAdornment>}
+								/>
+							</FormControl>
+						</Box>
 						<Button onClick={setPriceOne} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 100</Button>
 						<Button onClick={setPriceTwo} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 500</Button>
 						<Button onClick={setPriceThree} variant="contained" size="large" sx={{marginTop: 2}}>฿ 1,000</Button>
