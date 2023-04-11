@@ -39,17 +39,10 @@ export default function App() {
 		setPrice(e.target.value);
 	};
 
-	const setPriceOne = () => {
-		setPrice(100);
+	const setPriceItem = (price) => {
+		setPrice(price);
 	};
 
-	const setPriceTwo = () => {
-		setPrice(500);
-	};
-
-	const setPriceThree = () => {
-		setPrice(1000);
-	};
 
   return (
     <ThemeProvider theme={theme}>
@@ -105,9 +98,14 @@ export default function App() {
 								/>
 							</FormControl>
 						</Box>
-						<Button onClick={setPriceOne} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 100</Button>
-						<Button onClick={setPriceTwo} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 500</Button>
-						<Button onClick={setPriceThree} variant="contained" size="large" sx={{marginTop: 2}}>฿ 1,000</Button>
+						<Button onClick={()=>{setPriceItem(100)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 100</Button>
+						<Button onClick={()=>{setPriceItem(200)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 200</Button>
+						<Button onClick={()=>{setPriceItem(300)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 300</Button>
+						<Button onClick={()=>{setPriceItem(400)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 400</Button>
+						<Button onClick={()=>{setPriceItem(500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 500</Button>
+						<Button onClick={()=>{setPriceItem(1000)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,000</Button>
+						<Button onClick={()=>{setPriceItem(1500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,500</Button>
+						<Button onClick={()=>{setPriceItem(0)}} variant="contained" size="large" sx={{marginTop: 2}}>FREE</Button>
 					</Box>
 					<FormControl fullWidth sx={{ mt: 2 }} variant="filled">
 						<InputLabel htmlFor="filled-adornment-amount">ราคาของทั้งหมด</InputLabel>
