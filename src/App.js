@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -15,26 +13,30 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import { Card } from '@mui/material';
 
-
-
 const theme = createTheme();
 
 export default function App() {
 
-	const [item, setItem] = useState(0);
+	const [items, setItems] = useState([]);
 	const [price, setPrice] = useState(0);
 	const [totalPrice, setTotalPrice] = useState(0);
 
-	const handleClearForm = () => {
-		setItem(0);
-		setPrice(0);
-		setTotalPrice(0);
-	};
+	const enterAddItem = (e) => {
+		if(e.keyCode === 13){
+		   pushItem(e);
+		   e.target.value = "";
+		}
+	}
 
-	const setPriceTotal = (e) => {
-		setTotalPrice(e.target.value);
-	};
-
+	const pushItem = (e) => {
+		const newItem = e.target.value;
+		const numbers = newItem.match(/\d+/g).map(Number); // extract numbers from the string and convert to numbers
+		const sum = numbers.reduce((acc, curr) => acc + curr, 0); // add up the numbers
+		setTotalPrice(totalPrice => totalPrice + sum); // add sum to the total price
+		setItems(items => [...items, newItem]); // add the original item to the items array
+	  
+	}
+	
 	const setPriceKey = (e) => {
 		setPrice(e.target.value);
 	};
@@ -43,6 +45,11 @@ export default function App() {
 		setPrice(price);
 	};
 
+	const handleClearForm = () => {
+		setItems([]);
+		setPrice(0);
+		setTotalPrice(0);
+	};
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,19 +63,24 @@ export default function App() {
 							maxWidth: '100%',
 						}}
 					>
-						<TextField onChange={setPriceTotal} sx={{fontSize:'36px'}} fullWidth label="Scan Me" id="fullWidth" autoFocus/>
+						<TextField onKeyDown={enterAddItem} sx={{fontSize:'36px'}} fullWidth label="Scan Me" id="fullWidth" autoFocus/>
 					</Box>
 					<Card
 						sx={{
 							width: 800,
 							height: '50%',
+							display:'flex',
+							flexDirection:'column',
+							flexWrap: 'wrap',
+							rowGap:0,
 							maxWidth: '100%',
-							marginTop: 2
+							marginTop: 2,
+							padding:2
 						}}
 					>
-						<ul>
-							<li>{item}</li>
-						</ul>
+						{items.map((item, key)=>(
+							<Card sx={{width: '250px', padding:1, fontSize: '16px', fontWeight: '700', marginBottom: 2}}>{"รายการที่" + (key+1)}.{"ราคา" + item + "บาท"}</Card>
+						))}
 					</Card>
 					<Box
 						sx={{
@@ -114,19 +126,22 @@ export default function App() {
 							startAdornment={<InputAdornment position="start">฿ {totalPrice}</InputAdornment>}
 						/>
 					</FormControl>
-					<FormControl fullWidth sx={{ mt: 2 }} variant="filled">
-						<InputLabel htmlFor="filled-adornment-amount">เงินทอน</InputLabel>
-						<FilledInput
-							id="filled-adornment-amount"
-							startAdornment={<InputAdornment position="start">฿ {price - totalPrice}</InputAdornment>}
-						/>
-					</FormControl>
 					<Button onClick={handleClearForm} type="reset" variant="contained" size="large" sx={{
 							marginTop: 2
 						}}>
 						ขายใหม่
 					</Button>
 				</Paper>
+				<Card fullWidth sx={{ mt: 2, position:'absolute', width:'300px',height: '500px',top: '10px', right: '80px', textAlign:'center',color:'red' }} variant="filled">
+					<InputLabel htmlFor="filled-adornment-amount"><h1>เงินทอน</h1></InputLabel>
+					<FilledInput
+						id="filled-adornment-amount"
+						startAdornment={<InputAdornment position="start">฿ {price - totalPrice}</InputAdornment>}
+						readOnly
+						disabled
+					/>
+					<Button variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>พิมพ์ใบเสร็จ</Button>
+				</Card>
 			</Container>
 		</form>
     </ThemeProvider>
