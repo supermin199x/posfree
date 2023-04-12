@@ -54,96 +54,95 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
 		<CssBaseline />
-		<form action="">
-			<Container component="main" maxWidth="sm" sx={{ width:'100vw', height:'90vh', display: 'flex', flexDirection: 'row', justifyContent:'center', marginTop:5 }}>
-				<Paper variant="outlined" sx={{ display: 'flex', flexDirection: 'column', rowGap:1, columnGap:3, padding:3 }}>
+		<Container component="main"  sx={{ width:'100vw', height:'90vh', display: 'flex', flexDirection: 'row', justifyContent:'center',columnGap:2, marginTop:5 }}>
+			<Paper variant="outlined" sx={{ widht:'70%', display: 'flex', flexDirection: 'column', rowGap:1, columnGap:3, padding:3 }}>
+				<Box
+					sx={{
+						width: '100%',
+						maxWidth: '100%',
+					}}
+				>
+					<TextField onKeyDown={enterAddItem} sx={{fontSize:'36px'}} fullWidth label="Scan Me" id="fullWidth" autoFocus/>
+				</Box>
+				<Card
+					sx={{
+						width: 800,
+						height: '50%',
+						display:'flex',
+						flexDirection:'column',
+						flexWrap: 'wrap',
+						rowGap:0,
+						maxWidth: '100%',
+						marginTop: 2,
+						padding:2
+					}}
+				>
+					{items.map((item, key)=>(
+						<Card sx={{width: '250px', padding:1, fontSize: '16px', fontWeight: '700', marginBottom: 2}}>{"รายการที่" + (key+1)}.{"ราคา" + item + "บาท"}</Card>
+					))}
+				</Card>
+				<Box
+					sx={{
+						width: 800,
+						maxWidth: '100%',
+					}}
+				>
 					<Box
 						sx={{
 							width: 800,
 							maxWidth: '100%',
+							display: 'flex'
 						}}
 					>
-						<TextField onKeyDown={enterAddItem} sx={{fontSize:'36px'}} fullWidth label="Scan Me" id="fullWidth" autoFocus/>
+						<FormControl fullWidth sx={{ mt: 2, mr: 2 }} variant="standard">
+							<InputLabel htmlFor="standard-adornment-amount">เงินที่รับ</InputLabel>
+							<Input
+								id="standard-adornment-amount"
+								startAdornment={<InputAdornment position="start" >{price}</InputAdornment>}
+							/>
+						</FormControl>
+						<FormControl fullWidth sx={{ mt: 2 }} variant="standard">
+							<InputLabel htmlFor="standard-adornment-amount">ป้อนเอง</InputLabel>
+							<Input onChange={setPriceKey}
+								id="standard-adornment-amount"
+								startAdornment={<InputAdornment position="start" value={price}></InputAdornment>}
+							/>
+						</FormControl>
 					</Box>
-					<Card
-						sx={{
-							width: 800,
-							height: '50%',
-							display:'flex',
-							flexDirection:'column',
-							flexWrap: 'wrap',
-							rowGap:0,
-							maxWidth: '100%',
-							marginTop: 2,
-							padding:2
-						}}
-					>
-						{items.map((item, key)=>(
-							<Card sx={{width: '250px', padding:1, fontSize: '16px', fontWeight: '700', marginBottom: 2}}>{"รายการที่" + (key+1)}.{"ราคา" + item + "บาท"}</Card>
-						))}
-					</Card>
-					<Box
-						sx={{
-							width: 800,
-							maxWidth: '100%',
-						}}
-					>
-						<Box
-							sx={{
-								width: 800,
-								maxWidth: '100%',
-								display: 'flex'
-							}}
-						>
-							<FormControl fullWidth sx={{ mt: 2, mr: 2 }} variant="standard">
-								<InputLabel htmlFor="standard-adornment-amount">เงินที่รับ</InputLabel>
-								<Input
-									id="standard-adornment-amount"
-									startAdornment={<InputAdornment position="start" >{price}</InputAdornment>}
-								/>
-							</FormControl>
-							<FormControl fullWidth sx={{ mt: 2 }} variant="standard">
-								<InputLabel htmlFor="standard-adornment-amount">ป้อนเอง</InputLabel>
-								<Input onChange={setPriceKey}
-									id="standard-adornment-amount"
-									startAdornment={<InputAdornment position="start" value={price}></InputAdornment>}
-								/>
-							</FormControl>
-						</Box>
-						<Button onClick={()=>{setPriceItem(100)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 100</Button>
-						<Button onClick={()=>{setPriceItem(200)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 200</Button>
-						<Button onClick={()=>{setPriceItem(300)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 300</Button>
-						<Button onClick={()=>{setPriceItem(400)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 400</Button>
-						<Button onClick={()=>{setPriceItem(500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 500</Button>
-						<Button onClick={()=>{setPriceItem(1000)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,000</Button>
-						<Button onClick={()=>{setPriceItem(1500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,500</Button>
-						<Button onClick={()=>{setPriceItem(0)}} variant="contained" size="large" sx={{marginTop: 2}}>FREE</Button>
-					</Box>
-					<FormControl fullWidth sx={{ mt: 2 }} variant="filled">
-						<InputLabel htmlFor="filled-adornment-amount">ราคาของทั้งหมด</InputLabel>
-						<FilledInput
-							id="filled-adornment-amount"
-							startAdornment={<InputAdornment position="start">฿ {totalPrice}</InputAdornment>}
-						/>
-					</FormControl>
-					<Button onClick={handleClearForm} type="reset" variant="contained" size="large" sx={{
-							marginTop: 2
-						}}>
-						ขายใหม่
-					</Button>
-				</Paper>
-				<Card fullWidth sx={{ mt: 2, position:'absolute', width:'300px',height: '500px',top: '10px', right: '80px', textAlign:'center',color:'red' }} variant="filled">
-					<InputLabel htmlFor="filled-adornment-amount"><h1>เงินทอน</h1></InputLabel>
+					<Button onClick={()=>{setPriceItem(100)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 100</Button>
+					<Button onClick={()=>{setPriceItem(200)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 200</Button>
+					<Button onClick={()=>{setPriceItem(300)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 300</Button>
+					<Button onClick={()=>{setPriceItem(400)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 400</Button>
+					<Button onClick={()=>{setPriceItem(500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 500</Button>
+					<Button onClick={()=>{setPriceItem(1000)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,000</Button>
+					<Button onClick={()=>{setPriceItem(1500)}} variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>฿ 1,500</Button>
+					<Button onClick={()=>{setPriceItem(0)}} variant="contained" size="large" sx={{marginTop: 2}}>FREE</Button>
+				</Box>
+				<FormControl fullWidth sx={{ mt: 2 }} variant="filled">
+					<InputLabel htmlFor="filled-adornment-amount">ราคาของทั้งหมด</InputLabel>
 					<FilledInput
 						id="filled-adornment-amount"
-						startAdornment={<InputAdornment position="start">฿ {price - totalPrice}</InputAdornment>}
-						readOnly
-						disabled
+						startAdornment={<InputAdornment position="start">฿ {totalPrice}</InputAdornment>}
 					/>
-					<Button variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>พิมพ์ใบเสร็จ</Button>
-				</Card>
-			</Container>
-		</form>
+				</FormControl>
+				<Button onClick={handleClearForm} type="reset" variant="contained" size="large" sx={{
+						marginTop: 2
+					}}>
+					ขายใหม่
+				</Button>
+			</Paper>
+			<Paper sx={{ width:'30%', height: 'fit-content', textAlign:'center', padding:2}}>
+				<InputLabel htmlFor="filled-adornment-amount" sx={{fontSize:'24px'}}><h1>เงินทอน</h1></InputLabel>
+				<FilledInput
+					id="filled-adornment-amount"
+					startAdornment={<InputAdornment position="start">฿ {price - totalPrice}</InputAdornment>}
+					readOnly
+					disabled
+					sx={{fontSize:'36px', fontWeight:'700'}}
+				/>
+				<Button variant="contained" size="large" sx={{marginTop: 2, marginRight: 1}}>พิมพ์ใบเสร็จ</Button>
+			</Paper>
+		</Container>
     </ThemeProvider>
   );
 }
