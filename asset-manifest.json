@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/posfree/static/js/main.67dcca62.js",
+    "main.js": "/posfree/static/js/main.43cac16f.js",
     "index.html": "/posfree/index.html",
-    "main.67dcca62.js.map": "/posfree/static/js/main.67dcca62.js.map"
+    "main.43cac16f.js.map": "/posfree/static/js/main.43cac16f.js.map"
   },
   "entrypoints": [
-    "static/js/main.67dcca62.js"
+    "static/js/main.43cac16f.js"
   ]
 }
